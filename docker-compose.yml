@@ -1,4 +1,4 @@
-version: '2'
+version: '3.1'
 
 services:
 
@@ -8,7 +8,6 @@ services:
       - front
       - back
     ports:
-    # choose your port number
       - 8080:80
     environment:
       WORDPRESS_DB_PASSWORD: ChangeMyPass
@@ -30,13 +29,13 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
+    platform: linux/amd64
     networks:
       - back
     ports:
-    # choose your port number
       - 8282:80
     environment:
-      MYSQL_USERNAME: root
+      PMA_USER: root
       MYSQL_ROOT_PASSWORD: ChangeMyPass
       PMA_HOST: wordpress_db
 
