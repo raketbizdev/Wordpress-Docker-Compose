@@ -35,9 +35,10 @@ services:
     ports:
       - 8282:80
     environment:
-      PMA_USER: root
-      MYSQL_ROOT_PASSWORD: ChangeMyPass
       PMA_HOST: wordpress_db
+      PMA_USER: root
+      PMA_PASSWORD: ChangeMyPass
+      MYSQL_ROOT_PASSWORD: ChangeMyPass
 
 volumes:
   wordpress-db-data:
