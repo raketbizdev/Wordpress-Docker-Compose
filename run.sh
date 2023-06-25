@@ -4,10 +4,12 @@
 mkdir -p ./php
 touch ./php/uploads.ini
 
-# Optionally, add configurations to uploads.ini file
-echo "file_uploads = On" >> ./php/uploads.ini
-echo "upload_max_filesize = 64M" >> ./php/uploads.ini
-echo "post_max_size = 64M" >> ./php/uploads.ini
+# Optionally, add configurations to the uploads.ini file
+cat << EOF > ./php/uploads.ini
+file_uploads = On
+upload_max_filesize = 200M
+post_max_size = 200M
+EOF
 
 # Check if Docker Compose is installed
 if ! command -v docker-compose &> /dev/null
@@ -26,5 +28,11 @@ docker-compose --version
 # Run Docker Compose
 docker-compose up -d
 
+# Fix ownership of directories
+sudo chown -R $USER:$USER wordpress-data wordpress-db-data
+
+# Restart Docker Compose
+docker-compose down
+docker-compose up -d
 # chmod +x run.sh
 # ./run.sh
