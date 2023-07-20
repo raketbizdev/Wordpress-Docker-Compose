@@ -29,8 +29,8 @@ docker-compose --version
 docker-compose up -d
 
 # Fix ownership of directories
-sudo chown -R $USER:$USER wordpress-data wordpress-db-data
-
+# sudo chown -R $USER:$USER wordpress-data wordpress-db-data
+# sudo chown -R $USER:$USER wordpress-data/wp-config.php
 # Restart Docker Compose
 docker-compose down
 docker-compose up -d
