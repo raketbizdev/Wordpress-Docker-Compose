@@ -3,6 +3,22 @@
 # Create the necessary directory and file
 mkdir -p ./php
 touch ./php/uploads.ini
+
+# Create .htaccess inside ./wordpress-data with the given content
+mkdir -p ./wordpress-data
+cat << EOF > ./wordpress-data/.htaccess
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+EOF
+
 docker build -t custom-wordpress:latest .
 
 # Optionally, add configurations to the uploads.ini file
@@ -31,10 +47,10 @@ docker-compose up -d
 
 # Fix ownership of directories
 sudo chown -R 1000:1000 ./wordpress-data
-# sudo chown -R $USER:$USER wordpress-data wordpress-db-data
-# sudo chown -R $USER:$USER wordpress-data/wp-config.php
+
 # Restart Docker Compose
 docker-compose down
 docker-compose up -d
+
 # chmod +x run.sh
 # ./run.sh
