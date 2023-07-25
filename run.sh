@@ -3,6 +3,7 @@
 # Create the necessary directory and file
 mkdir -p ./php
 touch ./php/uploads.ini
+docker build -t custom-wordpress:latest .
 
 # Optionally, add configurations to the uploads.ini file
 cat << EOF > ./php/uploads.ini
@@ -29,6 +30,7 @@ docker-compose --version
 docker-compose up -d
 
 # Fix ownership of directories
+sudo chown -R 1000:1000 ./wordpress-data
 # sudo chown -R $USER:$USER wordpress-data wordpress-db-data
 # sudo chown -R $USER:$USER wordpress-data/wp-config.php
 # Restart Docker Compose
