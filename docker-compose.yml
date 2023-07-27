@@ -2,7 +2,10 @@ version: "3.1"
 
 services:
   wordpress:
-    image: custom-wordpress:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: custom-wordpress:latest
     networks:
       - front
       - back
